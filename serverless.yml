@@ -1,0 +1,47 @@
+# Welcome to Serverless!
+#
+# This file is the main config file for your service.
+# It's very minimal at this point and uses default values.
+# You can always add more config options for more control.
+# We've included some commented out config examples here.
+# Just uncomment any of them to get that config option.
+#
+# For full config options, check the docs:
+#    docs.serverless.com
+#
+# Happy Coding!
+
+service: integrations
+
+plugins:
+  - serverless-offline
+  - serverless-plugin-stage-variables
+  - serverless-deployment-bucket
+
+custom:
+  serverless-offline:
+    httpPort: 5000
+  apigwBinary:
+    types:
+      - "application/zip"
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: ${opt:stage, 'dev'}
+  deploymentBucket:
+    name: botsociety-YOUR-INTEGRATION-NAME
+    serverSideEncryption: AES256
+  # you can define service wide environment variables here
+  environment:
+    botsociety_api_endpoint: ${file(./config.${self:provider.stage}.json):botsociety_api_endpoint}
+
+functions:
+  #    Add here the handler that triggers your export function
+  #    Note: Don't change the http event route or your custom integration will not work
+  export:
+    handler: handler.triggerExport
+    events:
+      - http:
+          path: /export
+          method: post
