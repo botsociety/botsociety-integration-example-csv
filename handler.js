@@ -24,19 +24,15 @@ const triggerExport = async(event) => {
       var botsociety = new Botsociety({userId: headers.user_id, apiKey: headers.api_key_public})
       botsociety.getConversation(body.designId)
       .then(function(conversation) {
-        var CSVfile = "messageId,sender,content"
-        for (i = 0; i < conversation.messages.length; i++) {
+        var CSVfile = "messageId,sender,intent,content"
+        for (i = 0; i < conversation.messages.length; i++) { //loop the messages
           var message = conversation.messages[i]
           CSVfile += "\n"
-          for (y = 0; y < Object.keys(message.attachments).length; y++ ) {
-            if (message.attachments[Object.keys(message.attachments)[y]][0]) {
-              var attachment = message.attachments[Object.keys(message.attachments)[y]][0]
-              for (x = 0; x < attachment.items.length; x++) {
-                var val = attachment.items[x].values[Object.keys(attachment.items[x].values)[0]];
-                val = val[Object.keys(val)[0]];
-                val = val[Object.keys(val)[0]]; //grab the first available field, regardless of the format
-                CSVfile += message.id + "," + message.sender_id + "," + val
-              }
+          CSVfile += message.id + "," + message.sender_id + ","
+          for (y = 0; y < message.attachments.length; y++ ) { //loop the attachments
+            var attachment = message.attachments[y]
+            for (z = 0; z < attachment.utterances.length; z++ ) { //loop the utterances
+              CSVfile += JSON.stringify(attachment.utterances[z].utterance_values[0]) + "," //pick the first value
             }
           }
         }
@@ -73,7 +69,6 @@ const triggerExport = async(event) => {
         responseData += chunk
       });
       res.on('end', () => {
-        //done(JSON.parse(responseData))
         console.log("CSV sent")
       });
     });
