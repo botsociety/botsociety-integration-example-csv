@@ -53,8 +53,8 @@ const triggerExport = async(event) => {
       path: body.callbackUrl,
       headers: {
         'Content-Type': 'application/json',
-        'user_id': `${headers.userId}`,
-        'api_key_public': `${headers.apiKey}`,
+        'user_id': `${headers.user_id}`,
+        'api_key_public': `${headers.api_key_public}`,
       }
     };
     var postData = JSON.stringify({
