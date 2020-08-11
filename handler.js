@@ -32,7 +32,7 @@ const triggerExport = async(event) => {
           for (y = 0; y < message.attachments.length; y++ ) { //loop the attachments
             var attachment = message.attachments[y]
             for (z = 0; z < attachment.utterances.length; z++ ) { //loop the utterances
-              CSVfile += JSON.stringify(attachment.utterances[z].utterance_values[0]) + "," //pick the first value
+              CSVfile += JSON.stringify(attachment.utterances[z]) + "," //content of the first utterance
             }
           }
         }
