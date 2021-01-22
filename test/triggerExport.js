@@ -1,7 +1,8 @@
 require('dotenv').config()
 var http = require('http')
-describe("Trigger an export", function() {
-  it("Exports a design from the localhost, as if the user clicked on the Build mode button", function(done) {
+describe("Trigger an export", function () {
+  it("Exports a design from the localhost, as if the user clicked on the Build mode button", function (done) {
+    this.timeout(8000)
     httpOptions = {
       hostname: "localhost",
       port: 5000,

@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: integrations
+service: custom-integration-export-csv
 
 plugins:
   - serverless-offline
@@ -30,7 +30,7 @@ provider:
   runtime: nodejs10.x
   stage: ${opt:stage, 'dev'}
   deploymentBucket:
-    name: botsociety-YOUR-INTEGRATION-NAME
+    name: custom-integration-export-csv
     serverSideEncryption: AES256
   # you can define service wide environment variables here
   environment:

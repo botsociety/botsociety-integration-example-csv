@@ -4,7 +4,8 @@
   "description": "A boilerplate NodeJS project for your Botsociety custom integration.",
   "main": "index.js",
   "scripts": {
-    "test": "nodemon -e js,yml ./node_modules/.bin/serverless offline start & mocha"
+    "test": "nodemon -e js,yml ./node_modules/.bin/serverless offline start & mocha",
+    "start": "nodemon -e js,yml ./node_modules/.bin/serverless offline start"
   },
   "author": "Vittorio <erlapso> Banfi",
   "license": "MIT",
